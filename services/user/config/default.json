@@ -1,0 +1,10 @@
+{
+  "db": {
+    "host": "mongodb",
+    "port": 27017,
+    "name": "itunes"
+  },
+  "user": {
+    "secret": "12asfdsdgh12345"
+  }
+}

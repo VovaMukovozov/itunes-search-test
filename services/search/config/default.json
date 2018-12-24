@@ -1,0 +1,10 @@
+{
+  "cache": {
+    "redis": {
+      "host": "redis",
+      "port": 6379,
+      "ttl_secs": 2764800,
+      "db_index": 0
+    }
+  }
+}

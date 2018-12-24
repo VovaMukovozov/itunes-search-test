@@ -1,0 +1,58 @@
+version: '2.1'
+
+services:
+
+  search:
+    container_name: search
+    build: ./services/search/
+    volumes:
+      - './services/search/:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3002:3000' # expose ports - HOST:CONTAINER
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    links:
+      - redis
+      - user
+
+  user:
+    container_name: user
+    build: ./services/user/
+    volumes:
+      - './services/user/:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3001:3000' # expose ports - HOST:CONTAINER
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    links:
+      - mongodb
+
+  web-service:
+    container_name: web-service
+    build: ./services/web/
+    volumes:
+      - './services/web/:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3000:3000' # expose ports - HOST:CONTAINER
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    ports:
+        - 27017:27017
+    command: mongod
+
+  redis:
+    image: sameersbn/redis:4.0.9-1
+    container_name: "redis"
+    ports:
+      - "6379:6379"
+    restart: always
